@@ -8,6 +8,8 @@ from .utils import *
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
+from .forms import PaymentForm
+from django.http import HttpResponseServerError
 
 def orders(request):
 	order_items = OrderItem.objects.all()
@@ -304,3 +306,35 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+from django.shortcuts import render
+from .forms import PaymentForm
+from django.http import HttpResponseServerError
+
+def payment_request(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            id = form.cleaned_data['id']
+            description = form.cleaned_data['description']
+
+            # Now, you can make the Paymongo API request using the data.
+            # Insert the Paymongo API request code here (similar to the previous example).
+
+            # If the API request is successful, you can provide feedback to the user.
+            # For example:
+            # return render(request, 'success.html', {'response_data': response_data})
+            
+            # For debugging, you can print a message to the console to check if this part is reached.
+            print("API request successful")
+
+        else:
+            # Form is not valid, handle the error as needed
+            # For example, you can render an error template or return an HTTP 500 response.
+            return HttpResponseServerError("Form data is not valid")
+
+    else:
+        form = PaymentForm()
+
+    return render(request, 'store/paymentform.html', {'form': form})

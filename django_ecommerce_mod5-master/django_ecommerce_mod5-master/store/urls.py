@@ -16,7 +16,7 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('logoutuser/', views.logoutuser, name="logoutuser"),
     path('registration/', views.registration, name="registration"),
-    path ('update/<int:pk>/', views.update, name = 'update'),
+    path('update/<int:pk>/', views.update, name = 'update'),
     path('delete/<int:pk>', views.delete, name='delete'),
     path('toggle/<int:pk>/', views.toggle_item, name='toggle_item'),
     path('inventory/', views.inventory, name="inventory"),
@@ -24,5 +24,6 @@ urlpatterns = [
 	path('update_item/', views.updateItem, name="update_item"),
     path('update_item2/', views.updateItem2, name="update_item2"),
 	path('process_order/', views.processOrder, name="process_order"),
+    path('payment/', views.payment_request, name="payment_request"),
 
 ]
